@@ -59,7 +59,7 @@ public class DishRepository : IDishRepository
         return executeResult == 1 ? true : false;
     }
 
-    public async Task<List<DishAdminListDto>> GetAdminList(DishAdminListParams queryParams)
+    public async Task<List<DishAdminListDto>> GetAdminListAsync(DishAdminListParams queryParams)
     {
         var command = new SqlCommand()
         {
@@ -114,5 +114,87 @@ public class DishRepository : IDishRepository
         await _connection.CloseAsync();
 
         return dishAdminListDto;
+    }
+
+    public async Task<Dish> GetDishAsync(int id)
+    {
+        var command = new SqlCommand() 
+        { 
+            Connection = _connection,
+            CommandText = 
+                "SELECT Dishes.Id AS DishId, Name, CookingTime, YouWillNeed, DishWeight, Price, IsVisible, Ingredients, Photos.Id AS PhotoId, Url " +
+                "FROM Dishes JOIN Photos ON Dishes.Id = Photos.DishId " +
+                "WHERE Dishes.Id = @id;"
+        };
+
+        command.Parameters.AddWithValue("@id", id);
+
+        await _connection.OpenAsync();
+
+        using SqlDataReader reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows || !await reader.ReadAsync())
+        {
+            return null;
+        }
+
+        var dish = new Dish()
+        {
+            Id = (int)reader["DishId"],
+            Name = (string)reader["Name"],
+            CookingTime = (TimeSpan)reader["CookingTime"],
+            YouWillNeed = (string)reader["YouWillNeed"],
+            DishWeight = (int)reader["DishWeight"],
+            Price = (decimal)reader["Price"],
+            IsVisible = (bool)reader["IsVisible"],
+            Ingredients = (string)reader["Ingredients"],
+            Photos = new List<Photo>()
+        };
+        dish.Photos.Add(new Photo()
+        {
+            Id = (int)reader["PhotoId"],
+            Url = (string)reader["Url"]
+        });
+        
+        while (await reader.ReadAsync())
+        {
+            dish.Photos.Add(new Photo()
+            {
+                Id = (int)reader["PhotoId"],
+                Url = (string)reader["Url"]
+            });
+        }
+
+        await _connection.CloseAsync();
+
+        return dish;
+    }
+
+    public async Task<bool> UpdateDishAsync(Dish dish)
+    {
+        var command = new SqlCommand() 
+        { 
+            Connection = _connection,
+            CommandText =
+                "UPDATE Dishes SET Name = @name, CookingTime = @cookingTime, YouWillNeed = @youWillNeed, DishWeight = @dishWeight, Price = @price, IsVisible = @isVisible, Ingredients = @ingredients " +
+                "WHERE Id = @id;"
+        };
+
+        command.Parameters.AddWithValue("@name", dish.Name);
+        command.Parameters.AddWithValue("@cookingTime", dish.CookingTime.ToString());
+        command.Parameters.AddWithValue("@youWillNeed", dish.YouWillNeed);
+        command.Parameters.AddWithValue("@dishWeight", dish.DishWeight);
+        command.Parameters.AddWithValue("@price", dish.Price);
+        command.Parameters.AddWithValue("@isVisible", dish.IsVisible);
+        command.Parameters.AddWithValue("@ingredients", dish.Ingredients);
+        command.Parameters.AddWithValue("@id", dish.Id);
+
+        await _connection.OpenAsync();
+
+        int updatedRows = await command.ExecuteNonQueryAsync();
+
+        await _connection.CloseAsync();
+
+        return updatedRows > 0;
     }
 }

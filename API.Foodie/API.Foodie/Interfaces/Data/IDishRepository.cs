@@ -7,5 +7,7 @@ namespace API.Foodie.Interfaces.Data;
 public interface IDishRepository
 {
     Task<bool> AddDishAsync(Dish dish);
-    Task<List<DishAdminListDto>> GetAdminList(DishAdminListParams queryParams);
+    Task<List<DishAdminListDto>> GetAdminListAsync(DishAdminListParams queryParams);
+    Task<Dish> GetDishAsync(int id);
+    Task<bool> UpdateDishAsync(Dish dish);
 }

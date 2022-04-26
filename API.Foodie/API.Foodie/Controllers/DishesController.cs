@@ -68,13 +68,50 @@ public class DishesController : BaseApiController
     [HttpGet("admin-list")]
     public async Task<ActionResult<List<DishAdminListDto>>> GetAdminList([FromQuery] DishAdminListParams queryParams)
     {
-        var dishAdminListDto = await _unitOfWork.DishRepository.GetAdminList(queryParams);
+        var dishAdminListDto = await _unitOfWork.DishRepository.GetAdminListAsync(queryParams);
 
-        if(dishAdminListDto == null)
+        if (dishAdminListDto == null)
         {
             return BadRequest("Error by getting admin's dish list");
         }
 
         return dishAdminListDto;
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateDish(DishUpdateDto dishUpdateDto)
+    {
+        if (await _unitOfWork.DishRepository.GetDishAsync(dishUpdateDto.Id) == null)
+        {
+            return NotFound($"Dish with ID {dishUpdateDto.Id} was not found");
+        }
+
+        if (!await _unitOfWork.DishRepository.UpdateDishAsync(_mapper.Map<Dish>(dishUpdateDto)))
+        {
+            return BadRequest("Error by updating dish");
+        }
+
+        return Ok();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<DishDto>> GetDish(int id)
+    {
+        var dish = await _unitOfWork.DishRepository.GetDishAsync(id);
+
+        if(dish == null)
+        {
+            return NotFound($"Dish with ID {id} was not found");
+        }
+
+        var dishDto = _mapper.Map<DishDto>(dish);
+        dishDto.Photos = new List<PhotoDto>();
+
+        foreach(var p in dish.Photos)
+        {
+            dishDto.Photos.Add(_mapper.Map<PhotoDto>(p));
+        }
+
+        return dishDto;
     }
 }

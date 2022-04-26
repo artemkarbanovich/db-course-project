@@ -11,7 +11,10 @@ public class AutoMapperProfile : Profile
         CreateMap<UserUpdateDto, AppUser>();
         CreateMap<DishAddDto, Dish>()
             .ForMember(d => d.Photos, opt => opt.Ignore());
+        CreateMap<DishUpdateDto, Dish>();
 
         CreateMap<AppUser, UserDto>();
+        CreateMap<Dish, DishDto>();
+        CreateMap<Photo, PhotoDto>();
     }
 }

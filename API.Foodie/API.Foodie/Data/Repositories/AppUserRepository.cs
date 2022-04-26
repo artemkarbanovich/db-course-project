@@ -47,18 +47,18 @@ public class AppUserRepository : IAppUserRepository
 
         if (identifier is int)
         {
-            command.CommandText = "SELECT COUNT(*) FROM AppUsers WHERE Id = @id";
-            command.Parameters.AddWithValue("@id", identifier);
+            command.CommandText = "SELECT COUNT(*) FROM AppUsers WHERE Id = @identifier;";
         }
         else if (identifier is string)
         {
-            command.CommandText = "SELECT COUNT(*) FROM AppUsers WHERE Email = @email";
-            command.Parameters.AddWithValue("@email", identifier);
+            command.CommandText = "SELECT COUNT(*) FROM AppUsers WHERE Email = @identifier;";
         }
         else
         {
             return false;
         }
+
+        command.Parameters.AddWithValue("@identifier", identifier);
 
         await _connection.OpenAsync();
 
@@ -75,11 +75,11 @@ public class AppUserRepository : IAppUserRepository
 
         if (identifier is int)
         {
-            command.CommandText = "SELECT * FROM AppUsers WHERE Id = @identifier";
+            command.CommandText = "SELECT * FROM AppUsers WHERE Id = @identifier;";
         }
         else if (identifier is string)
         {
-            command.CommandText = "SELECT * FROM AppUsers WHERE Email = @identifier";
+            command.CommandText = "SELECT * FROM AppUsers WHERE Email = @identifier;";
         }
         else
         {
@@ -122,7 +122,7 @@ public class AppUserRepository : IAppUserRepository
 
         command.CommandText =
             "UPDATE AppUsers SET Email = @email, FirstName = @firstName, LastName = @lastName, Birthday = @birthday, PhoneNumber = @phoneNumber " +
-            "WHERE Id = @id";
+            "WHERE Id = @id;";
 
         command.Parameters.AddWithValue("@email", user.Email);
         command.Parameters.AddWithValue("@firstName", user.FirstName);

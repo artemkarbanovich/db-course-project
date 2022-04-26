@@ -16,9 +16,9 @@ BEGIN TRY
 		SET @isVisibleCommand = ' AND Dishes.IsVisible = 0';
 
 	IF(@orderBy = 'NAME')
-		SET @orderByCommand = ' ORDER BY Dishes.Name ' + @orderByType + ';';
+		SET @orderByCommand = ' ORDER BY Name ' + @orderByType + ';';
 	ELSE IF(@orderBy = 'PRICE')
-		SET @orderByCommand = ' ORDER BY Dishes.Price ' + @orderByType + ';';
+		SET @orderByCommand = ' ORDER BY Price ' + @orderByType + ';';
 
 	DECLARE @sqlCommand NVARCHAR(1000) = '
 		SELECT Dishes.Id AS DishId, Dishes.Name, Dishes.Price, Photos.Id AS PhotoId, Photos.Url
