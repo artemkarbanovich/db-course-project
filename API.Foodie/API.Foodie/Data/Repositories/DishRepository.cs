@@ -38,7 +38,7 @@ public class DishRepository : IDishRepository
 
         foreach (var p in dish.Photos)
         {
-            DataRow row = photoList.NewRow();
+            var row = photoList.NewRow();
 
             row["Url"] = p.Url;
             row["PublicId"] = p.PublicId;

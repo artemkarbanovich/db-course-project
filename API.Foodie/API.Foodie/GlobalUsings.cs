@@ -16,3 +16,7 @@ global using CloudinaryDotNet;
 global using Microsoft.Extensions.Options;
 global using CloudinaryDotNet.Actions;
 global using System.Data;
+global using MailKit.Net.Smtp;
+global using MailKit.Security;
+global using MimeKit;
+global using MimeKit.Text;

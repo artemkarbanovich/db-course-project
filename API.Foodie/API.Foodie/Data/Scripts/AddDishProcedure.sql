@@ -16,7 +16,7 @@ CREATE PROCEDURE dbo.AddDish
 	@isVisible BIT, @list AS dbo.PhotoList READONLY
 AS
 BEGIN TRY
-	BEGIN TRAN 
+	BEGIN TRAN
 		DECLARE @dishId INT = -1;
 
 		INSERT INTO Dishes (Name, CookingTime, YouWillNeed, DishWeight, Price, Ingredients, IsVisible)
