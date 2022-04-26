@@ -114,4 +114,76 @@ public class DishesController : BaseApiController
 
         return dishDto;
     }
+
+    [HttpPost("{id}/photos")]
+    public async Task<ActionResult<List<PhotoDto>>> AddPhotos([FromForm] List<IFormFile> files, int id)
+    {
+        if (await _unitOfWork.DishRepository.GetDishAsync(id) == null)
+        {
+            return NotFound($"Dish with ID {id} was not found");
+        }
+        else if(files.Count == 0)
+        {
+            return BadRequest("You must attach photos");
+        }
+
+        var photos = new List<Photo>();
+
+        foreach (var f in files)
+        {
+            var uploadResult = await _photoService.AddPhotoAsync(f);
+
+            if (uploadResult.Error == null)
+            {
+                photos.Add(new Photo()
+                {
+                    Url = uploadResult.SecureUrl.AbsoluteUri,
+                    PublicId = uploadResult.PublicId,
+                    DishId = id
+                });
+
+                continue;
+            }
+            else if (uploadResult.Error != null)
+            {
+                foreach (var p in photos)
+                {
+                    await _photoService.DeletePhotoAsync(p.PublicId);
+                }
+
+                return BadRequest("Error by uploading dish photos");
+            }
+        }
+
+        await _unitOfWork.DishRepository.AddDishPhotosAsync(photos);
+
+        var photosDto = await _unitOfWork.DishRepository.GetPhotosAsync(id);
+
+        if(photos == null)
+        {
+            return BadRequest("Error by getting photos");
+        }
+
+        return photosDto;
+    }
+
+    [HttpDelete("photos/{id}")]
+    public async Task<ActionResult> DeletePhoto(int id)
+    {
+        var photo = await _unitOfWork.DishRepository.GetPhotoAsync(id);
+
+        if(photo == null)
+        {
+            return NotFound("Photo not found");
+        }
+
+        var deletionResult = await _photoService.DeletePhotoAsync(photo.PublicId);
+
+        if(!await _unitOfWork.DishRepository.DeletePhotoAsync(photo) || deletionResult.Error != null)
+        {
+            return BadRequest("Error by deleting photo");
+        }
+
+        return Ok();
+    }
 }

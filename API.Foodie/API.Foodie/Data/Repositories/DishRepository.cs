@@ -75,7 +75,7 @@ public class DishRepository : IDishRepository
 
         await _connection.OpenAsync();
 
-        using SqlDataReader reader = await command.ExecuteReaderAsync();
+        using var reader = await command.ExecuteReaderAsync();
 
         var dishAdminListDto = new List<DishAdminListDto>();
 
@@ -131,7 +131,7 @@ public class DishRepository : IDishRepository
 
         await _connection.OpenAsync();
 
-        using SqlDataReader reader = await command.ExecuteReaderAsync();
+        using var reader = await command.ExecuteReaderAsync();
 
         if (!reader.HasRows || !await reader.ReadAsync())
         {
@@ -196,5 +196,115 @@ public class DishRepository : IDishRepository
         await _connection.CloseAsync();
 
         return updatedRows > 0;
+    }
+
+    public async Task AddDishPhotosAsync(List<Photo> photos)
+    {
+        var command = new SqlCommand()
+        {
+            Connection = _connection,
+            CommandText =
+                "INSERT INTO Photos (Url, PublicId, DishId) " +
+                "VALUES (@url, @publicId, @dishId);"
+        };
+
+        await _connection.OpenAsync();
+
+        foreach (var p in photos)
+        {
+            command.Parameters.AddWithValue("@url", p.Url);
+            command.Parameters.AddWithValue("@publicId", p.PublicId);
+            command.Parameters.AddWithValue("@dishId", p.DishId);
+
+            await command.ExecuteNonQueryAsync();
+        }
+
+        await _connection.CloseAsync();
+    }
+
+    public async Task<List<PhotoDto>> GetPhotosAsync(int dishId)
+    {
+        var command = new SqlCommand()
+        {
+            Connection = _connection,
+            CommandText = "SELECT Id, Url FROM Photos WHERE DishId = @dishId"
+        };
+
+        command.Parameters.AddWithValue("@dishId", dishId);
+
+        await _connection.OpenAsync();
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows)
+        {
+            return null;
+        }
+
+        var photos = new List<PhotoDto>();
+
+        while (await reader.ReadAsync())
+        {
+            photos.Add(new PhotoDto()
+            {
+                Id = (int)reader["Id"],
+                Url = (string)reader["Url"]
+            });
+        }
+
+        await _connection.CloseAsync();
+
+        return photos;
+    }
+
+    public async Task<Photo> GetPhotoAsync(int id)
+    {
+        var command = new SqlCommand()
+        {
+            Connection = _connection,
+            CommandText = "SELECT * FROM Photos WHERE Id = @id"
+        };
+
+        command.Parameters.AddWithValue("@id", id);
+
+        await _connection.OpenAsync();
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows || !await reader.ReadAsync())
+        {
+            return null;
+        }
+
+        var photo = new Photo()
+        {
+            Id = (int)reader["Id"],
+            Url = (string)reader["Url"],
+            PublicId = (string)reader["PublicId"],
+            DishId = (int)reader["dishId"]
+        };
+
+        await _connection.CloseAsync();
+
+        return photo;
+    }
+
+    public async Task<bool> DeletePhotoAsync(Photo photo)
+    {
+        var command = new SqlCommand()
+        {
+            Connection = _connection,
+            CommandText = "DELETE FROM Photos WHERE Id = @id"
+        };
+
+        command.Parameters.AddWithValue("@id", photo.Id);
+
+        await _connection.OpenAsync();
+
+        int deletedRows = await command.ExecuteNonQueryAsync();
+
+        await _connection.CloseAsync();
+
+        return deletedRows > 0;
     }
 }

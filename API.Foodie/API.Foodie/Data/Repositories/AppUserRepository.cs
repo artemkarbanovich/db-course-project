@@ -1,4 +1,5 @@
-﻿using API.Foodie.Interfaces.Data;
+﻿using API.Foodie.DTOs;
+using API.Foodie.Interfaces.Data;
 using API.Foodie.Model;
 
 namespace API.Foodie.Data.Repositories;
