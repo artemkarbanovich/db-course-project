@@ -8,6 +8,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly SqlConnection _connection;
     private readonly IAppUserRepository _appUserRepository = null;
     private readonly IDishRepository _dishRepository = null;
+    private readonly IOrderRepository _orderRepository = null;
 
     public UnitOfWork(IConfiguration config)
     {
@@ -17,4 +18,5 @@ public class UnitOfWork : IUnitOfWork
 
     public IAppUserRepository AppUserRepository => _appUserRepository ?? new AppUserRepository(_connection);
     public IDishRepository DishRepository => _dishRepository ?? new DishRepository(_connection);
+    public IOrderRepository OrderRepository => _orderRepository ?? new OrderRepository(_connection);
 }

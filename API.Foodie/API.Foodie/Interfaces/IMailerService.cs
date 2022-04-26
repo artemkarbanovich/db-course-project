@@ -1,6 +1,6 @@
 ﻿namespace API.Foodie.Interfaces;
 
-public interface IEmailService
+public interface IMailerService
 {
 
 }

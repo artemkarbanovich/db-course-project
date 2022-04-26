@@ -4,4 +4,5 @@ public interface IUnitOfWork
 {
     IAppUserRepository AppUserRepository { get; }
     IDishRepository DishRepository { get; }
+    IOrderRepository OrderRepository { get; }
 }

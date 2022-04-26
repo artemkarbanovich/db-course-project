@@ -6,7 +6,6 @@ using API.Foodie.Model;
 
 namespace API.Foodie.Controllers;
 
-[Authorize(Policy = "Admin")]
 public class DishesController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -22,6 +21,7 @@ public class DishesController : BaseApiController
 
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult> AddDish([FromForm] DishAddDto dishAddDto)
     {
         var dish = _mapper.Map<Dish>(dishAddDto);
@@ -66,6 +66,7 @@ public class DishesController : BaseApiController
     }
 
     [HttpGet("admin-list")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<List<DishAdminListDto>>> GetAdminList([FromQuery] DishAdminListParams queryParams)
     {
         var dishAdminListDto = await _unitOfWork.DishRepository.GetAdminListAsync(queryParams);
@@ -79,6 +80,7 @@ public class DishesController : BaseApiController
     }
 
     [HttpPut]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult> UpdateDish(DishUpdateDto dishUpdateDto)
     {
         if (await _unitOfWork.DishRepository.GetDishAsync(dishUpdateDto.Id) == null)
@@ -95,6 +97,7 @@ public class DishesController : BaseApiController
     }
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<DishDto>> GetDish(int id)
     {
         var dish = await _unitOfWork.DishRepository.GetDishAsync(id);
@@ -116,6 +119,7 @@ public class DishesController : BaseApiController
     }
 
     [HttpPost("{id}/photos")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<List<PhotoDto>>> AddPhotos([FromForm] List<IFormFile> files, int id)
     {
         if (await _unitOfWork.DishRepository.GetDishAsync(id) == null)
@@ -168,6 +172,7 @@ public class DishesController : BaseApiController
     }
 
     [HttpDelete("photos/{id}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult> DeletePhoto(int id)
     {
         var photo = await _unitOfWork.DishRepository.GetPhotoAsync(id);
@@ -185,5 +190,19 @@ public class DishesController : BaseApiController
         }
 
         return Ok();
+    }
+
+    [HttpGet("user-list")]
+    [Authorize(Policy = "User")]
+    public async Task<ActionResult<List<DishUserListDto>>> GetUserrList([FromQuery] DishUserListParams queryParams)
+    {
+        var dishUserListDto = await _unitOfWork.DishRepository.GetUserListAsync(queryParams);
+
+        if (dishUserListDto == null)
+        {
+            return BadRequest("Error by getting user's dish list");
+        }
+
+        return dishUserListDto;
     }
 }

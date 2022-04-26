@@ -307,4 +307,64 @@ public class DishRepository : IDishRepository
 
         return deletedRows > 0;
     }
+
+    public async Task<List<DishUserListDto>> GetUserListAsync(DishUserListParams queryParams)
+    {
+        var command = new SqlCommand()
+        {
+            CommandText = "dbo.GetDishUserList",
+            Connection = _connection,
+            CommandType = CommandType.StoredProcedure
+        };
+
+        command.Parameters.AddWithValue("@nameSearchStr", queryParams.NameSearchStr);
+        command.Parameters.AddWithValue("@orderBy", queryParams.OrderBy);
+        command.Parameters.AddWithValue("@orderByType", queryParams.OrderByType);
+
+        await _connection.OpenAsync();
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        var dishUserListDto = new List<DishUserListDto>();
+
+        if (!reader.HasRows)
+        {
+            return dishUserListDto;
+        }
+
+        while (await reader.ReadAsync())
+        {
+            var dishUserList = new DishUserListDto()
+            {
+                Id = (int)reader["DishId"],
+                Name = (string)reader["Name"],
+                CookingTime = (TimeSpan)reader["CookingTime"],
+                YouWillNeed = (string)reader["YouWillNeed"],
+                DishWeight = (int)reader["DishWeight"],
+                Price = (decimal)reader["Price"],
+                Ingredients = (string)reader["Ingredients"],
+                Photos = new List<PhotoDto>()
+            };
+            dishUserList.Photos.Add(new PhotoDto()
+            {
+                Id = (int)reader["PhotoId"],
+                Url = (string)reader["Url"]
+            });
+
+            var dishById = dishUserListDto.SingleOrDefault(d => d.Id == dishUserList.Id);
+
+            if (dishById == null)
+            {
+                dishUserListDto.Add(dishUserList);
+            }
+            else
+            {
+                dishById.Photos.AddRange(dishUserList.Photos);
+            }
+        }
+
+        await _connection.CloseAsync();
+
+        return dishUserListDto;
+    }
 }

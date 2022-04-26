@@ -14,4 +14,5 @@ public interface IDishRepository
     Task<List<PhotoDto>> GetPhotosAsync(int dishId);
     Task<Photo> GetPhotoAsync(int id);
     Task<bool> DeletePhotoAsync(Photo photo);
+    Task<List<DishUserListDto>> GetUserListAsync(DishUserListParams queryParams);
 }

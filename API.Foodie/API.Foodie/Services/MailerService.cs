@@ -2,7 +2,7 @@
 
 namespace API.Foodie.Services;
 
-public class EmailService : IEmailService
+public class MailerService : IMailerService
 {
 
 }

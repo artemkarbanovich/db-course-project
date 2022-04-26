@@ -10,7 +10,7 @@ public static class AppServiceExtensions
 {
     public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IMailerService, MailerService>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
