@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Foodie", "API.Foodie\API.Foodie.csproj", "{39A98823-19F9-45F1-9DB5-1CA7B3A5EE78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39A98823-19F9-45F1-9DB5-1CA7B3A5EE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A98823-19F9-45F1-9DB5-1CA7B3A5EE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A98823-19F9-45F1-9DB5-1CA7B3A5EE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A98823-19F9-45F1-9DB5-1CA7B3A5EE78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B4C999B-EADE-40D5-B3D2-AB0C9C676121}
+	EndGlobalSection
+EndGlobal
