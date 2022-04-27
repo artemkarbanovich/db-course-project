@@ -1,5 +1,6 @@
 ﻿using API.Foodie.DTOs;
 using API.Foodie.Extensions;
+using API.Foodie.Helpers.QueryParams;
 using API.Foodie.Interfaces;
 using API.Foodie.Interfaces.Data;
 using API.Foodie.Model;
@@ -82,7 +83,7 @@ public class OrdersController : BaseApiController
 
         if(order == null)
         {
-            return BadRequest($"Order with {orderStatusDto.OrderId} ID not found");
+            return NotFound($"Order with {orderStatusDto.OrderId} ID not found");
         }
 
         order.Status = orderStatusDto.Status;
@@ -95,5 +96,40 @@ public class OrdersController : BaseApiController
         await _orderStatusNotificator.NotifyAsync(order);
 
         return Ok();
+    }
+
+    [HttpGet("admin-list")]
+    [Authorize(Policy = "Admin")]
+    public async Task<ActionResult<List<OrderAdminListDto>>> GetAdminList([FromQuery] OrderAdminListParams queryParams)
+    {
+        var orderAdminListDto = await _unitOfWork.OrderRepository.GetAdminListAsync(queryParams);
+
+        if(orderAdminListDto == null)
+        {
+            return BadRequest("Error by getting admin's order list");
+        }
+
+        return orderAdminListDto;
+    }
+
+    [HttpGet("user-list")]
+    [Authorize(Policy = "User")]
+    public async Task<ActionResult<List<OrderUserListDto>>> GetUserList([FromQuery] OrderUserListParams queryParams)
+    {
+        var user = await _unitOfWork.AppUserRepository.GetUserAsync(User.GetId());
+
+        if(user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        var orderUserListDto = await _unitOfWork.OrderRepository.GetUserListAsync(queryParams, user.Id);
+
+        if (orderUserListDto == null)
+        {
+            return BadRequest("Error by getting user's order list");
+        }
+
+        return orderUserListDto;
     }
 }

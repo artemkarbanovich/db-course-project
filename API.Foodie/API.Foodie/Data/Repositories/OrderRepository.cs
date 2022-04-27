@@ -1,4 +1,6 @@
-﻿using API.Foodie.Interfaces.Data;
+﻿using API.Foodie.DTOs;
+using API.Foodie.Helpers.QueryParams;
+using API.Foodie.Interfaces.Data;
 using API.Foodie.Model;
 
 namespace API.Foodie.Data.Repositories;
@@ -187,5 +189,128 @@ public class OrderRepository : IOrderRepository
         await _connection.CloseAsync();
 
         return updatedRows > 0;
+    }
+
+    public async Task<List<OrderAdminListDto>> GetAdminListAsync(OrderAdminListParams queryParams)
+    {
+        var command = new SqlCommand()
+        {
+            CommandText = "dbo.GetOrderAdminList",
+            Connection = _connection,
+            CommandType = CommandType.StoredProcedure
+        };
+
+        command.Parameters.AddWithValue("@status", queryParams.Status);
+
+        await _connection.OpenAsync();
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        var orderAdminListDto = new List<OrderAdminListDto>();
+
+        if (!reader.HasRows)
+        {
+            return orderAdminListDto;
+        }
+
+        while(await reader.ReadAsync())
+        {
+            var order = new OrderAdminListDto()
+            {
+                Id = (int)reader["Id"],
+                OrderDate = (DateTime)reader["OrderDate"],
+                DeliveryDate = (DateTime)reader["DeliveryDate"],
+                TotalPrice = (decimal)reader["TotalPrice"],
+                Status = (string)reader["Status"],
+                Address = (string)reader["Address"],
+
+                Email = (string)reader["Email"],
+                FirstName = (string)reader["FirstName"],
+                LastName = (string)reader["LastName"],
+                PhoneNumber = (string)reader["PhoneNumber"],
+
+                Dishes = new List<OrderDishAdminListDto>()
+                {
+                    new OrderDishAdminListDto()
+                    {
+                        DishesCount = (int)reader["DishesCount"],
+                        Name = (string)reader["Name"],
+                        CookingTime = (TimeSpan)reader["CookingTime"],
+                        DishWeight = (int)reader["DishWeight"],
+                        Price = (decimal)reader["Price"],
+                        Ingredients = (string)reader["Ingredients"]
+                    }
+                }
+            };
+
+            var orderById = orderAdminListDto.SingleOrDefault(o => o.Id == order.Id);
+
+            if (orderById == null)
+            {
+                orderAdminListDto.Add(order);
+            }
+            else
+            {
+                orderById.Dishes.AddRange(order.Dishes);
+            }
+        }
+
+        await _connection.CloseAsync();
+
+        return orderAdminListDto;
+    }
+
+    public async Task<List<OrderUserListDto>> GetUserListAsync(OrderUserListParams queryParams, int userId)
+    {
+        var command = new SqlCommand()
+        {
+            Connection = _connection,
+            CommandText =
+                " SELECT O.OrderDate, O.DeliveryDate, O.TotalPrice, O.Status, O.Address" +
+                " FROM Orders AS O" +
+                " WHERE O.AppUserId = @userId"
+        };
+
+        command.Parameters.AddWithValue("@userId", userId);
+
+        if (queryParams.OrderDateFrom != null)
+        {
+            command.CommandText += " AND (CAST(O.OrderDate AS DATE) >= CAST(@orderDateFrom AS DATE))";
+            command.Parameters.AddWithValue("@orderDateFrom", queryParams.OrderDateFrom);
+        }
+        if (queryParams.OrderDateTo != null)
+        {
+            command.CommandText += " AND (CAST(O.OrderDate AS DATE) <= CAST(@orderDateTo AS DATE))";
+            command.Parameters.AddWithValue("@orderDateTo", queryParams.OrderDateTo);
+        }
+
+        command.CommandText += " ORDER BY O.OrderDate DESC;";
+
+        await _connection.OpenAsync();
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        var orderUserListDto = new List<OrderUserListDto>();
+
+        if (!reader.HasRows)
+        {
+            return orderUserListDto;
+        }
+
+        while (await reader.ReadAsync())
+        {
+            orderUserListDto.Add(new OrderUserListDto()
+            {
+                OrderDate = (DateTime)reader["OrderDate"],
+                DeliveryDate = (DateTime)reader["DeliveryDate"],
+                TotalPrice = (decimal)reader["TotalPrice"],
+                Status = (string)reader["Status"],
+                Address = (string)reader["Address"]
+            });
+        }
+
+        await _connection.CloseAsync();
+
+        return orderUserListDto;
     }
 }

@@ -92,12 +92,14 @@ public class DishRepository : IDishRepository
                 Name = (string)reader["Name"],
                 Price = (decimal)reader["Price"],
                 Photos = new List<PhotoDto>()
+                {
+                    new PhotoDto()
+                    {
+                        Id = (int)reader["PhotoId"],
+                        Url = (string)reader["Url"]
+                    }
+                }
             };
-            dishAdminList.Photos.Add(new PhotoDto()
-            {
-                Id = (int)reader["PhotoId"],
-                Url = (string)reader["Url"]
-            });
             
             var dishById = dishAdminListDto.SingleOrDefault(d => d.Id == dishAdminList.Id);
 

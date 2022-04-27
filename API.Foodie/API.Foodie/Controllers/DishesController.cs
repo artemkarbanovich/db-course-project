@@ -194,7 +194,7 @@ public class DishesController : BaseApiController
 
     [HttpGet("user-list")]
     [Authorize(Policy = "User")]
-    public async Task<ActionResult<List<DishUserListDto>>> GetUserrList([FromQuery] DishUserListParams queryParams)
+    public async Task<ActionResult<List<DishUserListDto>>> GetUserList([FromQuery] DishUserListParams queryParams)
     {
         var dishUserListDto = await _unitOfWork.DishRepository.GetUserListAsync(queryParams);
 
