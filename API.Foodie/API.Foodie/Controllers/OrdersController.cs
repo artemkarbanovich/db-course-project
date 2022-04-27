@@ -9,12 +9,12 @@ namespace API.Foodie.Controllers;
 public class OrdersController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMailerService _mailer;
+    private readonly IOrderStatusNotificatorService _orderStatusNotificator;
 
-    public OrdersController(IUnitOfWork unitOfWork, IMailerService mailer)
+    public OrdersController(IUnitOfWork unitOfWork, IOrderStatusNotificatorService orderStatusNotificator)
     {
         _unitOfWork = unitOfWork;
-        _mailer = mailer;
+        _orderStatusNotificator = orderStatusNotificator;
     }
 
 
@@ -55,6 +55,7 @@ public class OrdersController : BaseApiController
             Status = "ACCEPTED",
             Address = orderAddDto.Address,
             AppUserId = user.Id,
+            AppUser = user,
             Dishes = orderDishes
         };
 
@@ -63,10 +64,35 @@ public class OrdersController : BaseApiController
             return BadRequest("Error by making order");
         }
 
-        await _mailer.SendEmailAsync(user.Email, "Order accepted",
-            $"<h2>{user.FirstName} {user.LastName}, your order has been successfully accepted. Expect delivery.</h2>" +
-            $"<h4>Total price: {Math.Round(order.TotalPrice, 2)} BYN</h4>" +
-            $"<p>With respect, Foodie!</p>");
+        await _orderStatusNotificator.NotifyAsync(order);
+
+        return Ok();
+    }
+    
+    [HttpPatch]
+    [Authorize(Policy = "Admin")]
+    public async Task<ActionResult> UpdateOrderStatus(OrderStatusDto orderStatusDto)
+    {
+        if (orderStatusDto.Status == null)
+        {
+            return BadRequest($"Status {orderStatusDto.Status} is not supported");
+        }
+
+        var order = await _unitOfWork.OrderRepository.GetOrderAsync(orderStatusDto.OrderId);
+
+        if(order == null)
+        {
+            return BadRequest($"Order with {orderStatusDto.OrderId} ID not found");
+        }
+
+        order.Status = orderStatusDto.Status;
+
+        if(!await _unitOfWork.OrderRepository.UpdateOrderStatusAsync(order.Id, order.Status))
+        {
+            return BadRequest("Error by updating order status");
+        }
+
+        await _orderStatusNotificator.NotifyAsync(order);
 
         return Ok();
     }

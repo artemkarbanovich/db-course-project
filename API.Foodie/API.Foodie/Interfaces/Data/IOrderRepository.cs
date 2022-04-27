@@ -6,4 +6,6 @@ public interface IOrderRepository
 {
     Task<decimal> CalculateOrderTotalPriceAsync(List<OrderDish> orderDishes);
     Task<bool> AddOrderAsync(Order order);
+    Task<Order> GetOrderAsync(int id);
+    Task<bool> UpdateOrderStatusAsync(int orderId, string status);
 }

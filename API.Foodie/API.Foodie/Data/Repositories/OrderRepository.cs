@@ -91,4 +91,101 @@ public class OrderRepository : IOrderRepository
 
         return executeResult == 1 ? true : false;
     }
+
+    public async Task<Order> GetOrderAsync(int id)
+    {
+        var command = new SqlCommand()
+        {
+            CommandText = "dbo.GetOrderById",
+            Connection = _connection,
+            CommandType = CommandType.StoredProcedure
+
+        };
+
+        command.Parameters.AddWithValue("@orderId", id);
+
+        await _connection.OpenAsync();
+
+        using SqlDataReader reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows || !await reader.ReadAsync())
+        {
+            return null;
+        }
+
+        var order = new Order()
+        {
+            Id = (int)reader["Id"],
+            OrderDate = (DateTime)reader["OrderDate"],
+            DeliveryDate = (DateTime)reader["DeliveryDate"],
+            TotalPrice = (decimal)reader["TotalPrice"],
+            Status = (string)reader["Status"],
+            Address = (string)reader["Address"],
+            AppUser = new AppUser()
+            {
+                FirstName = (string)reader["FirstName"],
+                LastName = (string)reader["LastName"],
+                Email = (string)reader["Email"],
+                PhoneNumber = (string)reader["PhoneNumber"]
+            },
+            Dishes = new List<OrderDish>()
+            {
+                new OrderDish()
+                {
+                    DishesCount = (int)reader["DishesCount"],
+                    Dish = new Dish()
+                    {
+                        Name = (string)reader["Name"],
+                        CookingTime = (TimeSpan)reader["CookingTime"],
+                        YouWillNeed = (string)reader["YouWillNeed"],
+                        DishWeight = (int)reader["DishWeight"],
+                        Price = (decimal)reader["Price"],
+                        Ingredients = (string)reader["Ingredients"]
+                    }
+                }
+            }
+        };
+
+        while(await reader.ReadAsync())
+        {
+            order.Dishes.Add(new OrderDish()
+            {
+                DishesCount = (int)reader["DishesCount"],
+                Dish = new Dish()
+                {
+                    Name = (string)reader["Name"],
+                    CookingTime = (TimeSpan)reader["CookingTime"],
+                    YouWillNeed = (string)reader["YouWillNeed"],
+                    DishWeight = (int)reader["DishWeight"],
+                    Price = (decimal)reader["Price"],
+                    Ingredients = (string)reader["Ingredients"]
+                }
+            });
+        }
+
+        await _connection.CloseAsync();
+
+        return order;
+    }
+
+    public async Task<bool> UpdateOrderStatusAsync(int orderId, string status)
+    {
+        var command = new SqlCommand() 
+        { 
+            Connection = _connection,
+            CommandText =
+            "UPDATE Orders SET Status = @status WHERE Id = @id;"
+        };
+
+        command.Parameters.AddWithValue("@status", status);
+        command.Parameters.AddWithValue("@id", orderId);
+
+        await _connection.OpenAsync();
+
+        int updatedRows = await command.ExecuteNonQueryAsync();
+
+        await _connection.CloseAsync();
+
+        return updatedRows > 0;
+    }
 }

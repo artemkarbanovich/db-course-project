@@ -11,6 +11,7 @@ public static class AppServiceExtensions
     public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddScoped<IMailerService, MailerService>();
+        services.AddScoped<IOrderStatusNotificatorService, OrderStatusEmailNotificatorService>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();

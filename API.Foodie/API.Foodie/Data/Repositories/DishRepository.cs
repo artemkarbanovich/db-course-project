@@ -149,12 +149,14 @@ public class DishRepository : IDishRepository
             IsVisible = (bool)reader["IsVisible"],
             Ingredients = (string)reader["Ingredients"],
             Photos = new List<Photo>()
+            {
+                new Photo()
+                {
+                    Id = (int)reader["PhotoId"],
+                    Url = (string)reader["Url"]
+                }
+            }
         };
-        dish.Photos.Add(new Photo()
-        {
-            Id = (int)reader["PhotoId"],
-            Url = (string)reader["Url"]
-        });
         
         while (await reader.ReadAsync())
         {
