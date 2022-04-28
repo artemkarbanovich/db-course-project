@@ -10,6 +10,7 @@ var config = builder.Configuration;
 
 services.AddAppServices(config);
 services.AddIdentityServices(config);
+services.AddCors();
 services.AddControllers()
     .AddJsonOptions(opt =>
     {
@@ -24,5 +25,10 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors(opt => opt
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .AllowAnyOrigin());
 app.MapControllers();
 app.Run();

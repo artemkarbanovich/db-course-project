@@ -10,8 +10,9 @@ public class OrderUserListParams
         get
         {
             if (DateTime.TryParseExact(orderDateFrom, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+            {
                 return date.ToString("yyyy-MM-dd");
-
+            }
             return null;
         }
         set => orderDateFrom = value;
@@ -21,8 +22,9 @@ public class OrderUserListParams
         get
         {
             if (DateTime.TryParseExact(orderDateTo, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+            {
                 return date.ToString("yyyy-MM-dd");
-
+            }
             return null;
         }
         set => orderDateTo = value;

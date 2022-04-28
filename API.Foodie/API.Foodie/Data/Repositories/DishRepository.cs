@@ -56,7 +56,7 @@ public class DishRepository : IDishRepository
 
         await _connection.CloseAsync();
 
-        return executeResult == 1 ? true : false;
+        return executeResult == 1;
     }
 
     public async Task<List<DishAdminListDto>> GetAdminListAsync(DishAdminListParams queryParams)
