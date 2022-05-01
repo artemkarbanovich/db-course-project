@@ -1,0 +1,26 @@
+.container__img {
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../../../assets/images/home-page-bg-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 75px);
+    width: 100%;
+}
+
+.container__img__text {
+    position: absolute;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 45%;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 120px;
+    }
+}

@@ -1,0 +1,48 @@
+<header>
+	<div class="header__container">
+
+		<div class="header__logo__container">
+			<a routerLink="/"><span>Foodie</span></a>
+			<ng-container *ngIf="!(accountService.currentUser$ | async)">
+				<span>Admin pannel</span>
+			</ng-container>
+		</div>
+
+		<ng-container *ngIf="!(accountService.currentUser$ | async)">
+			<div class="header__login__container">
+				<form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="loginForm.valid && login()">
+
+					<mat-form-field class="form-field">
+						<mat-label>Enter email</mat-label>
+						<input matInput type="email" formControlName="email">
+						<mat-error *ngIf="loginForm.controls['email'].invalid">Invalid email format</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="form-field">
+						<mat-label>Enter password</mat-label>
+						<input matInput type="password" formControlName="password">
+						<mat-error *ngIf="loginForm.controls['password'].invalid">Length must be from 6 to 32</mat-error>
+					</mat-form-field>
+
+					<button color="primary" [disabled]="loginForm.invalid"  mat-stroked-button type="submit">LOGIN</button>
+
+				</form>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="(accountService.currentUser$ | async)">
+			<div class="header__nav__container">
+				<ul>
+          <li><a>Dishes</a></li>
+          <li><a>Orders</a></li>
+          <li><a>Statistics</a></li>
+        </ul>
+			</div>
+			
+			<div class="header__btn__logout">
+				<button (click)="logout()" mat-stroked-button color="warn">LOGOUT</button>
+			</div>
+		</ng-container>
+
+	</div>
+</header>
