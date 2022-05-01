@@ -1,4 +1,5 @@
 ﻿using API.Foodie.DTOs;
+using API.Foodie.Extensions;
 using API.Foodie.Interfaces;
 using API.Foodie.Interfaces.Data;
 using API.Foodie.Model;
@@ -60,6 +61,15 @@ public class AccountController : BaseApiController
         if (user == null)
         {
             return NotFound("Invalid email");
+        }
+
+        if (!Request.IsMobile() && user.UserRole != "Admin")
+        {
+            return Unauthorized("Only admin can login");
+        }
+        else if (Request.IsMobile() && user.UserRole != "User")
+        {
+            return Unauthorized("Only user can login");
         }
 
         using var hmac = new HMACSHA512(user.PasswordSalt);

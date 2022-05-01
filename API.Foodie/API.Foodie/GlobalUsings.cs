@@ -20,3 +20,4 @@ global using MailKit.Net.Smtp;
 global using MailKit.Security;
 global using MimeKit;
 global using MimeKit.Text;
+global using System.Text.RegularExpressions;
