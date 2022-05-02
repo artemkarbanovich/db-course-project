@@ -9,13 +9,17 @@
 }
 
 .order__search-params__container {
-    margin-top: 5px;
+    margin-top: 7px;
     font-size: 18px;
 
     form {
         margin-left: 15px;
         display: inline-block;
-    } 
+    }
+
+    button {
+        margin-left: 20px;
+    }
 }
 
 .order__item__container {

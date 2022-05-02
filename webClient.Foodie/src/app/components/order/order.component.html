@@ -14,8 +14,9 @@
           </mat-select>
         </mat-form-field>
       </form>
+      <button (click)="getOrders()" mat-stroked-button color="primary">REFRESH</button>
     </div>
-
+    
     <ng-container *ngFor="let order of orders">
       <div class="order__item__container">
         <mat-card>

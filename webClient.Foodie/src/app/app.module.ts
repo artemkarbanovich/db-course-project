@@ -18,13 +18,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { StatisticComponent } from './components/statistic/statistic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    OrderComponent
+    OrderComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,

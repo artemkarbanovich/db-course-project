@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
     this.accountService.login(user).subscribe({
       complete: () => {
         this.loginForm.reset();
-        this.toastr.success('You successfully logged in');
       },
       error: (error) => {
         this.toastr.error(error.error);
