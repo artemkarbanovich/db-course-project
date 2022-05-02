@@ -9,15 +9,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './components/home/home.component';
+import { OrderComponent } from './components/order/order.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +38,15 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-left'
-    })
+    }),
+    MatCardModule,
+    MatSelectModule,
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

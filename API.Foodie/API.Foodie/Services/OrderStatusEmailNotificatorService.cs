@@ -20,7 +20,7 @@ public class OrderStatusEmailNotificatorService : IOrderStatusNotificatorService
         switch (order.Status)
         {
             case "ACCEPTED":
-                subject = "Order accepted";
+                subject = "Order is accepted";
                 message =
                     $"<h3>{order.AppUser.FirstName} {order.AppUser.LastName}, your order has been successfully accepted {DateTime.Now:dd.MM.yyyy} at {DateTime.Now:HH:mm}. Expect delivery.</h3>" +
                     $"<h4>Total price: {Math.Round(order.TotalPrice, 2)} BYN</h4>" +
@@ -43,7 +43,7 @@ public class OrderStatusEmailNotificatorService : IOrderStatusNotificatorService
                 break;
 
             case "CANCELED":
-                subject = "Order is delivered";
+                subject = "Order is canceled";
                 message =
                     $"<h3>{order.AppUser.FirstName} {order.AppUser.LastName}, your order is canceled. If you have any questions contact support.</h3>" +
                     $"<p>With respect, Foodie!</p>";

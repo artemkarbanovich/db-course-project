@@ -29,14 +29,14 @@
 				</form>
 			</div>
 		</ng-container>
-
+		
 		<ng-container *ngIf="(accountService.currentUser$ | async)">
 			<div class="header__nav__container">
 				<ul>
-          <li><a>Dishes</a></li>
-          <li><a>Orders</a></li>
-          <li><a>Statistics</a></li>
-        </ul>
+					<li><a>Dishes</a></li>
+					<li><a routerLink="/orders">Orders</a></li>
+					<li><a>Statistics</a></li>
+        		</ul>
 			</div>
 			
 			<div class="header__btn__logout">

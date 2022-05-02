@@ -1,0 +1,55 @@
+.order__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.order__content__container {
+    margin: 0 22px 0 22px;
+}
+
+.order__search-params__container {
+    margin-top: 5px;
+    font-size: 18px;
+
+    form {
+        margin-left: 15px;
+        display: inline-block;
+    } 
+}
+
+.order__item__container {
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+    form {
+        margin-left: 15px;
+        display: inline-block;
+
+        mat-form-field {
+            font-size: 16px;
+        }
+    } 
+
+    mat-card-subtitle {
+        margin: 0;
+    }
+
+    mat-card-content {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .order-dish__container {
+        margin: 5px 0 5px 20px;
+        
+        p {
+            margin: 0;
+        }
+    }
+}

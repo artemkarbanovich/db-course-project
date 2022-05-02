@@ -1,0 +1,59 @@
+<mat-divider></mat-divider>
+<div class="order__container">
+  <div class="order__content__container">
+    <div class="order__search-params__container">
+      Select order search status:
+      <form>
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select [(value)]="orderStatus" (selectionChange)="getOrders()">
+            <mat-option value="ACCEPTED">Accepted</mat-option>
+            <mat-option value="IN_WAY">In way</mat-option>
+            <mat-option value="DELIVERED">Delivered</mat-option>
+            <mat-option value="CANCELED">Canceled</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <ng-container *ngFor="let order of orders">
+      <div class="order__item__container">
+        <mat-card>
+          <mat-card-title>
+            <div>
+              Order №{{order.id}}
+              <form>
+                <mat-form-field>
+                  <mat-label>Status</mat-label>
+                  <mat-select [value]="order.status" (selectionChange)="updateStatus(order.id, $event.value)">
+                    <mat-option value="ACCEPTED">Accepted</mat-option>
+                    <mat-option value="IN_WAY">In way</mat-option>
+                    <mat-option value="DELIVERED">Delivered</mat-option>
+                    <mat-option value="CANCELED">Canceled</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+            </div>
+          </mat-card-title>
+          <mat-card-subtitle>Order date: {{order.orderDate | date: 'dd.MM.yyyy HH:mm'}}</mat-card-subtitle>
+          <mat-card-subtitle>Delivery date: {{order.deliveryDate | date: 'dd.MM.yyyy HH:mm'}}
+          <mat-card-subtitle>Total price: {{order.totalPrice}} BYN</mat-card-subtitle>
+          </mat-card-subtitle>
+
+          <mat-card-content>
+            <p>From: {{order.firstName}} {{order.lastName}}</p>
+            <p>Contacts: {{order.phoneNumber}}, {{order.email}}</p>
+            <p>Address: {{order.address}}</p>
+          </mat-card-content>
+
+          <ng-container *ngFor="let dish of order.dishes; let i = index">
+            <div class="order-dish__container">
+              <p>Dish №{{i + 1}}. Count: {{dish.dishesCount}}</p>
+              <p>{{dish.name}}, {{dish.dishWeight}} gramm per dish, {{dish.price}} BYN, {{dish.cookingTime}}</p>
+            </div>
+          </ng-container>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+</div>
