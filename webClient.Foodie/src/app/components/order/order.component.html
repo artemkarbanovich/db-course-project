@@ -2,11 +2,12 @@
 <div class="order__container">
   <div class="order__content__container">
     <div class="order__search-params__container">
-      Select order search status:
+      Select search status:
       <form>
         <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select [(value)]="orderStatus" (selectionChange)="getOrders()">
+            <mat-option value="NOT_MATTER">Default</mat-option>
             <mat-option value="ACCEPTED">Accepted</mat-option>
             <mat-option value="IN_WAY">In way</mat-option>
             <mat-option value="DELIVERED">Delivered</mat-option>
@@ -49,8 +50,8 @@
 
           <ng-container *ngFor="let dish of order.dishes; let i = index">
             <div class="order-dish__container">
-              <p>Dish №{{i + 1}}. Count: {{dish.dishesCount}}</p>
-              <p>{{dish.name}}, {{dish.dishWeight}} gramm per dish, {{dish.price}} BYN, {{dish.cookingTime}}</p>
+              <p>№{{i + 1}} | Count: {{dish.dishesCount}} | {{dish.name}}, {{dish.dishWeight}} gram, {{dish.price}} BYN</p>
+              <p>Ingredients: {{dish.ingredients}}.</p>
             </div>
           </ng-container>
         </mat-card>

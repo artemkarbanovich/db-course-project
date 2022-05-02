@@ -8,6 +8,10 @@
     margin: 0 22px 0 22px;
 }
 
+::ng-deep .mat-select-panel {
+    max-height: none !important;
+}
+
 .order__search-params__container {
     margin-top: 7px;
     font-size: 18px;
@@ -50,7 +54,7 @@
     }
 
     .order-dish__container {
-        margin: 5px 0 5px 20px;
+        margin: 15px 0 5px 30px;
         
         p {
             margin: 0;
