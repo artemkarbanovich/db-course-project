@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="content__container">
+
+        <div class="search-param__container">
+            Select search parameters:
+
+            <form autocomplete="off" (submit)="getDishList()">
+
+                <mat-form-field>
+                    <mat-label>Search by name</mat-label>
+                    <input matInput type="text" [(ngModel)]="nameSearchStr" name="nameSearchStr">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Sorting by</mat-label>
+                    <mat-select [(value)]="orderBy">
+                        <mat-option value="NOT_MATTER">Default</mat-option>
+                        <mat-option value="NAME">Name</mat-option>
+                        <mat-option value="PRICE">Price</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Sorting type</mat-label>
+                    <mat-select [(value)]="orderByType">
+                        <mat-option value="ASC">Ascending</mat-option>
+                        <mat-option value="DESC">Descending</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Available</mat-label>
+                    <mat-select [(value)]="isVisible">
+                        <mat-option value="NOT_MATTER">Default</mat-option>
+                        <mat-option value="TRUE">Yes</mat-option>
+                        <mat-option value="FALSE">No</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button mat-stroked-button color="primary" type="submit">Apply</button>
+            </form>
+        </div>
+
+        <ng-container *ngFor="let dish of dishList">
+            <div class="dish-item__container">
+                <mat-card>
+                    <div class="dish-photo__carousel">
+                        <mat-carousel timings="250ms ease-in" [autoplay]="false" color="accent" proportion="65"
+                            [loop]="true" [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true"
+                            [useMouseWheel]="false" orientation="ltr">
+                            <mat-carousel-slide #matCarouselSlide *ngFor="let photo of dish.photos; let i = index"
+                                [image]="photo.url" [hideOverlay]="true"></mat-carousel-slide>
+                        </mat-carousel>
+                    </div>
+
+                    <div class="dish-item-info">
+                        <p>Name: <span>{{dish.name}}</span></p>
+                        <p>Price: <span>{{dish.price | number : '1.1-2'}} BYN</span></p>
+                        <p>Available for order: <span>{{dish.isVisible ? 'Yes' : 'No'}}</span></p>
+                    </div>
+                    
+                    <div class="edit-btn">
+                        <button color="primary" routerLink="/dishes/{{dish.id}}" mat-stroked-button>Edit dish</button>
+                    </div>
+                </mat-card>
+            </div>
+        </ng-container>
+
+    </div>
+</div>

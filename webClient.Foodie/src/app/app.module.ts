@@ -19,6 +19,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { StatisticComponent } from './components/statistic/statistic.component';
+import { DishListComponent } from './components/dish-list/dish-list.component';
+import { DishItemComponent } from './components/dish-item/dish-item.component';
+import { DishComponent } from './components/dish/dish.component';
+import { DishAddComponent } from './components/dish-add/dish-add.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { FileUploadModule } from "ng2-file-upload";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,7 +37,11 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     HeaderComponent,
     HomeComponent,
     OrderComponent,
-    StatisticComponent
+    StatisticComponent,
+    DishListComponent,
+    DishItemComponent,
+    DishComponent,
+    DishAddComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +58,14 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     }),
     MatCardModule,
     MatSelectModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatTabsModule,
+    MatCarouselModule,
+    FormsModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    FileUploadModule,
+    MatIconModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

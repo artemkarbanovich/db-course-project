@@ -91,6 +91,7 @@ public class DishRepository : IDishRepository
                 Id = (int)reader["DishId"],
                 Name = (string)reader["Name"],
                 Price = (decimal)reader["Price"],
+                IsVisible = (bool)reader["IsVisible"],
                 Photos = new List<PhotoDto>()
                 {
                     new PhotoDto()
@@ -135,7 +136,7 @@ public class DishRepository : IDishRepository
 
         using var reader = await command.ExecuteReaderAsync();
 
-        if (!reader.HasRows || !await reader.ReadAsync())
+        if (reader == null || !reader.HasRows || !await reader.ReadAsync())
         {
             return null;
         }
@@ -204,18 +205,18 @@ public class DishRepository : IDishRepository
 
     public async Task AddDishPhotosAsync(List<Photo> photos)
     {
-        var command = new SqlCommand()
-        {
-            Connection = _connection,
-            CommandText =
-                "INSERT INTO Photos (Url, PublicId, DishId) " +
-                "VALUES (@url, @publicId, @dishId);"
-        };
-
         await _connection.OpenAsync();
 
         foreach (var p in photos)
         {
+            var command = new SqlCommand()
+            {
+                Connection = _connection,
+                CommandText =
+                "INSERT INTO Photos (Url, PublicId, DishId) " +
+                "VALUES (@url, @publicId, @dishId);"
+            };
+
             command.Parameters.AddWithValue("@url", p.Url);
             command.Parameters.AddWithValue("@publicId", p.PublicId);
             command.Parameters.AddWithValue("@dishId", p.DishId);

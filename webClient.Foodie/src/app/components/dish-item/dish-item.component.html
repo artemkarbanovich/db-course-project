@@ -1,0 +1,106 @@
+<mat-divider></mat-divider>
+<div *ngIf="dish">
+    <div class="container">
+        <div class="general-info__container">
+            <form #editForm="ngForm" class="form" autocomplete="off" [formGroup]="dishForm"
+                (submit)="updateGeneralInfo()">
+
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input type="text" [autofocus]="false" matInput formControlName="name">
+                    <mat-error *ngIf="dishForm.controls['name'].invalid">Length must be from 1 to 25</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Cooking time</mat-label>
+                    <input type="time" [autofocus]="false" matInput formControlName="cookingTime">
+                    <mat-error *ngIf="dishForm.controls['cookingTime'].invalid">Invalid value</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Dish weight, gram</mat-label>
+                    <input type="number" [autofocus]="false" matInput formControlName="dishWeight">
+                    <mat-error *ngIf="dishForm.controls['dishWeight'].invalid">Weight must be from 1 to 2000</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Ingredients</mat-label>
+                    <textarea rows="3" type="text" [autofocus]="false" matInput
+                        formControlName="ingredients"></textarea>
+                    <mat-error *ngIf="dishForm.controls['ingredients'].invalid">Length must be from 3 to 120</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>You will need</mat-label>
+                    <textarea rows="3" type="text" [autofocus]="false" matInput
+                        formControlName="youWillNeed"></textarea>
+                    <mat-error *ngIf="dishForm.controls['youWillNeed'].invalid">Length must be from 3 to 120</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Price, BYN</mat-label>
+                    <input type="text" [autofocus]="false" matInput formControlName="price">
+                    <mat-error *ngIf="dishForm.controls['price'].invalid">Price must be from 1 to 500</mat-error>
+                </mat-form-field>
+
+                <mat-checkbox class="single-order" formControlName="isVisible">
+                    Is available?
+                </mat-checkbox>
+
+                <button class="submit-btn" color="primary" [disabled]="!dishForm.valid || !editForm.dirty"
+                    mat-raised-button type="submit">Update general information</button>
+
+            </form>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="add-images__container">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Add photos</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="image__container">
+
+                <button class="img-action__button" mat-raised-button color="primary" (click)="fileInput.click()">Add
+                    photo</button>
+                <button class="img-action__button" mat-raised-button color="primary" (click)="uploadPhotos()"
+                    [disabled]="uploader.queue.length === 0">Upload</button>
+
+                <span class="file-input">
+                    <input type="file" #fileInput ng2FileSelect [uploader]="uploader" />
+                </span>
+
+                <table cellspacing="0" class="files__table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size, MB</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let image of uploader.queue">
+                            <td>{{image?.file?.name}}</td>
+                            <td>{{image?.file?.size/1024/1024 | number:'.2'}}</td>
+                            <td>
+                                <button class="delete-button" (click)="image.remove()" mat-icon-button>
+                                    <mat-icon class="delete-icon">close</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </mat-expansion-panel>
+
+        <div class="images__container">
+            <mat-card class="image-details" *ngFor="let photo of dish.photos">
+                <img [src]="photo.url" [alt]="dish.name">
+                <button mat-raised-button color="warn" [disabled]="dish.photos.length === 1"
+                    (click)=" deleteDishPhoto(photo)">Delete</button>
+            </mat-card>
+        </div>
+    </div>
+</div>

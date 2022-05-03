@@ -16,10 +16,8 @@ export class OrderService {
   public getOrders(status: string) : Observable<Order[]> {
     let params = new HttpParams();
 
-    if(status) {
-      params = params.append('status', status);
-    }
-
+    if(status) params = params.append('status', status);
+    
     return this.http.get<Order[]>(this.apiUrl + 'orders/admin-list', { observe: 'response', params }).pipe(
       map((response: HttpResponse<Order[]>) => {
         return response.body;

@@ -21,7 +21,7 @@ BEGIN TRY
 		SET @orderByCommand = ' ORDER BY Price ' + @orderByType + ';';
 
 	DECLARE @sqlCommand NVARCHAR(1000) = '
-		SELECT Dishes.Id AS DishId, Dishes.Name, Dishes.Price, Photos.Id AS PhotoId, Photos.Url
+		SELECT Dishes.Id AS DishId, Dishes.Name, Dishes.Price, Dishes.IsVisible, Photos.Id AS PhotoId, Photos.Url
 		FROM Dishes JOIN Photos ON Dishes.Id = Photos.DishId
 		WHERE (LOWER(Dishes.Name) LIKE LOWER(''%' + @nameSearchStr + '%''))'
 	  + @isVisibleCommand
