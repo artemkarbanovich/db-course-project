@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_baseline_account_box_24"
+            android:title="Profile"/>
+
+        <item android:id="@+id/nav_dishes"
+            android:icon="@drawable/ic_baseline_room_service_24"
+            android:title="Dishes"/>
+
+        <item android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="Cart"/>
+
+        <item android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_baseline_list_24"
+            android:title="Orders"/>
+
+        <item android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_baseline_analytics_24"
+            android:title="Statistics"/>
+
+        <item android:title=""
+            android:enabled="false"
+            app:actionLayout="@menu/menu_empty_item"
+            app:showAsAction="always"/>
+
+        <item android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title="Logout"/>
+
+    </group>
+</menu>

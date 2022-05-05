@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
@@ -22,11 +25,12 @@ import karbanovich.fit.bstu.foodie.helpers.ValidationHelper;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Register;
 import karbanovich.fit.bstu.foodie.network.OnFetchDataListener;
-import karbanovich.fit.bstu.foodie.network.RequestAccountManager;
+import karbanovich.fit.bstu.foodie.network.requestManagers.RequestAccountManager;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     private EditText email;
     private EditText firstName;
     private EditText lastName;
@@ -52,9 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
                 email.setError("Email already taken");
                 isValid = false;
             }
+            progressBar.setVisibility(View.GONE);
         }
         @Override public void onFetchError(Throwable error) {
             Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
         }
     };
 
@@ -87,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                 phoneNumber.getText().toString(),
                 password.getText().toString());
 
+        progressBar.setVisibility(View.VISIBLE);
         RequestAccountManager requestManager = new RequestAccountManager();
 
         // TODO: Remove Timer when deployed
@@ -98,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void bindingView() {
+        progressBar = findViewById(R.id.register__progress_bar);
         email = findViewById(R.id.register__email_text);
         firstName = findViewById(R.id.register__first_name_text);
         lastName = findViewById(R.id.register__last_name_text);
@@ -124,6 +132,8 @@ public class RegisterActivity extends AppCompatActivity {
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH),
                 date.get(Calendar.DAY_OF_MONTH));
+
+        birthdayDialog.getDatePicker().setMaxDate(new Date().getTime());
 
         birthday.setOnClickListener(view -> {
             SystemHelper.hideKeyboard(this);

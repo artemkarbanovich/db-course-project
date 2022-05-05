@@ -1,9 +1,11 @@
-package karbanovich.fit.bstu.foodie.network;
+package karbanovich.fit.bstu.foodie.network.requestManagers;
 import karbanovich.fit.bstu.foodie.constants.ApiConstants;
 import karbanovich.fit.bstu.foodie.helpers.HttpHelper;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Login;
 import karbanovich.fit.bstu.foodie.models.Register;
+import karbanovich.fit.bstu.foodie.network.FoodieAPI;
+import karbanovich.fit.bstu.foodie.network.OnFetchDataListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

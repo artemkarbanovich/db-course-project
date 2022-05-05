@@ -20,7 +20,7 @@ import karbanovich.fit.bstu.foodie.helpers.ValidationHelper;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Login;
 import karbanovich.fit.bstu.foodie.network.OnFetchDataListener;
-import karbanovich.fit.bstu.foodie.network.RequestAccountManager;
+import karbanovich.fit.bstu.foodie.network.requestManagers.RequestAccountManager;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 else
                     AccountSingleton.setAccount(response.body().getEmail(), response.body().getToken());
 
-                startActivity(new Intent(context, DishesActivity.class));
+                startActivity(new Intent(context, ProfileActivity.class));
             } else if(response.code() == 404) {
                 email.setError("Account with this email not exist");
                 isValid = false;

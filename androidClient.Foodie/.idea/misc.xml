@@ -3,12 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.26615384615384613" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_cart.xml" value="0.25416666666666665" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_dishes.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_drawer_base.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_launcher.xml" value="0.25416666666666665" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
-        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_preview.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_orders.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_preview.xml" value="0.264" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_registration.xml" value="0.2341485507246377" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_statistic.xml" value="0.24010416666666667" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/activity_statistics.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/content_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/layout/main_drawer_header.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/menu/main_drawer_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/menu/menu_drawer_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/menu/menu_logout_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/DB_cource_project/Project/androidClient.Foodie/app/src/main/res/xml/network_security_config.xml" value="0.21458333333333332" />
       </map>
     </option>
