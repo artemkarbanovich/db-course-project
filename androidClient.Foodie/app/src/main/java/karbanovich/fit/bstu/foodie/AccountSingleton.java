@@ -11,6 +11,7 @@ public class AccountSingleton {
             instance = new Account(email, token);
         }
     }
-
+    
     public static Account getAccount() { return instance; }
+    public static void destroyAccount() { instance = null; }
 }

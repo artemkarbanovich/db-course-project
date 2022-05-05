@@ -17,9 +17,9 @@ public class RequestAccountManager {
             .baseUrl(ApiConstants.API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+    private final FoodieAPI foodieAPI = retrofit.create(FoodieAPI.class);
 
     public void register(OnFetchDataListener<Account> listener, Register register) {
-        FoodieAPI foodieAPI = retrofit.create(FoodieAPI.class);
         Call<Account> call = foodieAPI.register(register);
 
         call.enqueue(new Callback<Account>() {
@@ -33,7 +33,6 @@ public class RequestAccountManager {
     }
 
     public void login(OnFetchDataListener<Account> listener, Login login) {
-        FoodieAPI foodieAPI = retrofit.create(FoodieAPI.class);
         Call<Account> call = foodieAPI.login(login);
 
         call.enqueue(new Callback<Account>() {

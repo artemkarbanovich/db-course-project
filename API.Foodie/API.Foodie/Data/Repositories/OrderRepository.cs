@@ -292,7 +292,7 @@ public class OrderRepository : IOrderRepository
 
         var orderUserListDto = new List<OrderUserListDto>();
 
-        if (!reader.HasRows)
+        if (reader == null || !reader.HasRows)
         {
             return orderUserListDto;
         }
