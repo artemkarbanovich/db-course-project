@@ -158,11 +158,20 @@ public class StatRepository : IStatRepository
 
         var statUserDto = new StatUserDto()
         {
-            TotalOrdersCount = (int)command.Parameters["@totalOrdersCount"].Value,
-            TotalMoneySpent = (decimal)command.Parameters["@totalMoneySpent"].Value,
-            OrdersCountLastMonth = (int)command.Parameters["@ordersCountLastMonth"].Value,
-            MoneySpentLastMonth = (decimal)command.Parameters["@moneySpentLastMonth"].Value,
-            WaitingOrdersCount = (int)command.Parameters["@waitingOrdersCount"].Value
+            TotalOrdersCount = Convert.IsDBNull(command.Parameters["@totalOrdersCount"].Value) ? null
+                : (int?)command.Parameters["@totalOrdersCount"].Value,
+
+            TotalMoneySpent = Convert.IsDBNull(command.Parameters["@totalMoneySpent"].Value) ? null
+                : (decimal?)command.Parameters["@totalMoneySpent"].Value,
+
+            OrdersCountLastMonth = Convert.IsDBNull(command.Parameters["@ordersCountLastMonth"].Value) ? null
+                : (int?)command.Parameters["@ordersCountLastMonth"].Value,
+
+            MoneySpentLastMonth = Convert.IsDBNull(command.Parameters["@moneySpentLastMonth"].Value) ? null
+                : (decimal?)command.Parameters["@moneySpentLastMonth"].Value,
+
+            WaitingOrdersCount = Convert.IsDBNull(command.Parameters["@waitingOrdersCount"].Value) ? null
+                : (int?)command.Parameters["@waitingOrdersCount"].Value
         };
 
         await _connection.CloseAsync();

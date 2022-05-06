@@ -10,14 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import com.auth0.android.jwt.Claim;
-import com.auth0.android.jwt.JWT;
 import com.google.android.material.navigation.NavigationView;
-
 import karbanovich.fit.bstu.foodie.AccountSingleton;
 import karbanovich.fit.bstu.foodie.R;
 import karbanovich.fit.bstu.foodie.database.DatabaseBuilder;
+import karbanovich.fit.bstu.foodie.database.repositories.StatisticsRepository;
 import karbanovich.fit.bstu.foodie.database.repositories.UserRepository;
 import karbanovich.fit.bstu.foodie.helpers.AccountHelper;
 import karbanovich.fit.bstu.foodie.helpers.SharedPreferencesHelper;
@@ -70,6 +67,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         SQLiteDatabase db = new DatabaseBuilder(this).getWritableDatabase();
 
         UserRepository.deleteUser(db, AccountHelper.getUserId(this));
+        StatisticsRepository.deleteStatistics(db, AccountHelper.getUserId(this));
 
         AccountSingleton.destroyAccount();
         SharedPreferencesHelper.deleteAccount(this);

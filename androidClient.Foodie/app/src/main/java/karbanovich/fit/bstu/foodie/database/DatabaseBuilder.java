@@ -8,6 +8,7 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
     private static final int SCHEMA = 1;
     private static final String DATABASE_NAME = "Foodie";
     private static final  String USERS_TABLE = "Users";
+    private static final String STATISTICS_TABLE = "Statistics";
 
     public DatabaseBuilder(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);
@@ -23,6 +24,15 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
                 "RegistrationDate TEXT NOT NULL,     " +
                 "PhoneNumber TEXT NOT NULL,          " +
                 "UpdateStatus TEXT                 );"
+        );
+
+        db.execSQL("CREATE TABLE " + STATISTICS_TABLE + "(" +
+                "UserId INTEGER PRIMARY KEY NOT NULL,     " +
+                "TotalOrdersCount INTEGER NOT NULL,       " +
+                "TotalMoneySpent REAL NOT NULL,           " +
+                "OrdersCountLastMonth INTEGER NOT NULL,   " +
+                "MoneySpentLastMonth REAL NOT NULL,       " +
+                "WaitingOrdersCount REAL NOT NULL       );"
         );
     }
 

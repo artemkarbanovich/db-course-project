@@ -6,4 +6,224 @@
     android:layout_height="match_parent"
     tools:context=".views.StatisticsActivity">
 
+    <TextView android:id="@+id/statistics__no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:text="Check your internet connection and try again"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ProgressBar android:id="@+id/statistics__progress_bar"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp" />
+
+    <LinearLayout android:id="@+id/total_orders_count_container"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center" >
+
+        <TextView android:id="@+id/total_orders_count_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Total orders count"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:paddingLeft="7dp"
+            android:textSize="16dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/border_1_px" />
+
+        <TextView android:id="@+id/total_orders_count_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:layout_marginLeft="-1dp"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/border_1_px" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/total_money_spent_container"
+        app:layout_constraintTop_toBottomOf="@id/total_orders_count_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="-1dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center" >
+
+        <TextView android:id="@+id/total_money_spent_text"
+            android:layout_width="0dp"
+            android:paddingLeft="7dp"
+            android:layout_height="wrap_content"
+            android:text="Total money spent, BYN"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:textSize="16dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/border_1_px" />
+
+        <TextView android:id="@+id/total_money_spent_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:layout_marginLeft="-1dp"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/border_1_px" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/orders_count_last_month_container"
+        app:layout_constraintTop_toBottomOf="@id/total_money_spent_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center" >
+
+        <TextView android:id="@+id/orders_count_last_month_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:text="Orders count last month"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:textSize="16dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/border_1_px" />
+
+        <TextView android:id="@+id/orders_count_last_month_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:layout_marginLeft="-1dp"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/border_1_px" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/money_spent_last_month_container"
+        app:layout_constraintTop_toBottomOf="@id/orders_count_last_month_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="-1dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center" >
+
+        <TextView android:id="@+id/money_spent_last_month_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Money spent last month, BYN"
+            android:textColor="@color/black"
+            android:paddingLeft="7dp"
+            android:height="40dp"
+            android:textSize="16dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/border_1_px" />
+
+        <TextView android:id="@+id/money_spent_last_month_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:layout_marginLeft="-1dp"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/border_1_px" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/waiting_orders_count_container"
+        app:layout_constraintTop_toBottomOf="@id/money_spent_last_month_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center" >
+
+        <TextView android:id="@+id/waiting_orders_count_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Waiting orders count"
+            android:textColor="@color/black"
+            android:paddingLeft="7dp"
+            android:height="40dp"
+            android:textSize="16dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/border_1_px" />
+
+        <TextView android:id="@+id/waiting_orders_count_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:height="40dp"
+            android:layout_marginLeft="-1dp"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/border_1_px" />
+    </LinearLayout>
+
+    <TextView android:id="@+id/statistics__may_differ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:text="Statistics may differ from reality due to no internet connection"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package karbanovich.fit.bstu.foodie.helpers;
 import java.security.cert.CertificateException;
-import java.util.concurrent.TimeUnit;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;

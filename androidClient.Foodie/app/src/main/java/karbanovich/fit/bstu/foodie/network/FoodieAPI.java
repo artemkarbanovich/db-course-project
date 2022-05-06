@@ -2,6 +2,7 @@ package karbanovich.fit.bstu.foodie.network;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Login;
 import karbanovich.fit.bstu.foodie.models.Register;
+import karbanovich.fit.bstu.foodie.models.Statistics;
 import karbanovich.fit.bstu.foodie.models.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,4 +26,7 @@ public interface FoodieAPI {
 
     @PUT("users")
     Call<Void> updateUser(@Header("authorization") String token, @Body User user);
+
+    @GET("statistics/user")
+    Call<Statistics> getStatistics(@Header("authorization") String token);
 }
