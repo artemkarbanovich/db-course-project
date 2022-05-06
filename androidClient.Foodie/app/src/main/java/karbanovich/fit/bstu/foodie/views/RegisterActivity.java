@@ -95,13 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
         RequestAccountManager requestManager = new RequestAccountManager();
-
-        // TODO: Remove Timer when deployed
-        new Timer().schedule(new TimerTask() {
-            @Override public void run() {
-                requestManager.register(responseListener, register);
-            }
-        }, 1500L);
+        requestManager.register(responseListener, register);
     }
 
     private void bindingView() {

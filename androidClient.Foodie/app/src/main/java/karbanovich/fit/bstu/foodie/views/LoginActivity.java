@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 else
                     AccountSingleton.setAccount(response.body().getEmail(), response.body().getToken());
 
-                startActivity(new Intent(context, ProfileActivity.class));
+                startActivity(new Intent(context, DishesActivity.class));
             } else if(response.code() == 404) {
                 email.setError("Account with this email not exist");
                 isValid = false;
@@ -80,13 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
         RequestAccountManager requestManager = new RequestAccountManager();
-
-        // TODO: Remove Timer when deployed
-        new Timer().schedule(new TimerTask() {
-            @Override public void run() {
-                requestManager.login(responseListener, login);
-            }
-        }, 1500L);
+        requestManager.login(responseListener, login);
     }
 
     private void bindingView() {

@@ -6,13 +6,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
 import com.google.android.material.navigation.NavigationView;
 
 import karbanovich.fit.bstu.foodie.AccountSingleton;
 import karbanovich.fit.bstu.foodie.R;
+import karbanovich.fit.bstu.foodie.database.DatabaseBuilder;
+import karbanovich.fit.bstu.foodie.database.repositories.UserRepository;
+import karbanovich.fit.bstu.foodie.helpers.AccountHelper;
 import karbanovich.fit.bstu.foodie.helpers.SharedPreferencesHelper;
 
 public class DrawerBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,13 +59,22 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_statistics: startActivity(new Intent(this, StatisticsActivity.class));
                 overridePendingTransition(0, 0); break;
             case R.id.nav_logout:
-                AccountSingleton.destroyAccount();
-                SharedPreferencesHelper.deleteAccount(this);
+                deleteAllUserData();
                 startActivity(new Intent(this, PreviewActivity.class));
                 break;
         }
         return false;
     }
+
+    private void deleteAllUserData() {
+        SQLiteDatabase db = new DatabaseBuilder(this).getWritableDatabase();
+
+        UserRepository.deleteUser(db, AccountHelper.getUserId(this));
+
+        AccountSingleton.destroyAccount();
+        SharedPreferencesHelper.deleteAccount(this);
+    }
+
 
     protected void allocateActivityTitle(String titleString) {
         if(getSupportActionBar() != null)

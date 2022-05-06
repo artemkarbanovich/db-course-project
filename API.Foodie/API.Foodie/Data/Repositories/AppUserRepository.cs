@@ -131,11 +131,13 @@ public class AppUserRepository : IAppUserRepository
         command.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
         command.Parameters.AddWithValue("@id", user.Id);
 
-        await _connection.OpenAsync();
+        if(_connection.State != ConnectionState.Open)
+            await _connection.OpenAsync();
 
         int updatedRows = await command.ExecuteNonQueryAsync();
 
-        await _connection.CloseAsync();
+        if(_connection.State != ConnectionState.Closed)
+            await _connection.CloseAsync();
 
         return updatedRows > 0;
     }
