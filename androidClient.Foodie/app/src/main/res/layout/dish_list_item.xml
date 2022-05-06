@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/news_item_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="7dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+       <ImageView android:id="@+id/dish_item___images"
+           android:layout_width="match_parent"
+           android:layout_height="200dp"
+           android:scaleType="centerCrop"
+           android:src="@drawable/img_default"/>
+
+        <TextView android:id="@+id/dish_item__name"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="Dish name"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="#4E4E4E" />
+
+        <TextView android:id="@+id/dish_item__cooking_time"
+            android:layout_width="match_parent"
+            android:gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:text="cooking time: 01:25"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="#4E4E4E" />
+
+        <TextView android:id="@+id/dish_item__weight"
+            android:layout_width="match_parent"
+            android:gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:text="dish weight: 500 gram"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="#4E4E4E" />
+
+        <TextView android:id="@+id/dish_item__ingredients"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="chicken, carrot, potato, water, garlic, pepper, salt, cucumber..."
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="#4E4E4E" />
+
+        <TextView android:id="@+id/dish_item__you_will_need"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="salt, sugar, fork, cutting board..."
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="#4E4E4E" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dish_item__price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:gravity="left|center"
+                android:text="29.90 BYN"
+                android:textSize="20dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_weight="2" />
+
+            <Button android:id="@+id/dish_item__to_cart_btn"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="TO CART"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

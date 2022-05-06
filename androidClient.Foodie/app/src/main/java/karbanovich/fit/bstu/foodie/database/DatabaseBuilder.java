@@ -35,23 +35,24 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
                 "MoneySpentLastMonth REAL NOT NULL,       " +
                 "WaitingOrdersCount REAL NOT NULL       );"
         );
-        db.execSQL("CREATE TABLE " + DISHES_TABLE + "           (" +
-                "Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,  " +
-                "UserId INTEGER NOT NULL,                        " +
-                "DishId INTEGER NOT NULL,                        " +
-                "Name TEXT NOT NULL,                             " +
-                "CookingTime TEXT NOT NULL,                      " +
-                "YouWillNeed TEXT NOT NULL,                      " +
-                "DishWeight INTEGER NOT NULL,                    " +
-                "Price REAL NOT NULL,                            " +
-                "Ingredients TEXT NOT NULL                     );"
+        db.execSQL("CREATE TABLE " + DISHES_TABLE + "   (" +
+                "Id INTEGER PRIMARY KEY AUTOINCREMENT,  " +
+                "UserId INTEGER NOT NULL,               " +
+                "DishId INTEGER NOT NULL,               " +
+                "Name TEXT NOT NULL,                    " +
+                "CookingTime TEXT NOT NULL,             " +
+                "YouWillNeed TEXT NOT NULL,             " +
+                "DishWeight INTEGER NOT NULL,           " +
+                "Price REAL NOT NULL,                   " +
+                "Ingredients TEXT NOT NULL            );"
         );
         db.execSQL("CREATE TABLE " + PHOTOS_TABLE + "                          (" +
-                "Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,                 " +
+                "Id INTEGER PRIMARY KEY AUTOINCREMENT,                          " +
                 "DishId INTEGER NOT NULL,                                       " +
                 "PhotoId INTEGER NOT NULL,                                      " +
                 "Url TEXT NOT NULL,                                             " +
-                "FOREIGN KEY(DishId) REFERENCES " + DISHES_TABLE + "(DishId)  );"
+                "FOREIGN KEY(DishId) REFERENCES " + DISHES_TABLE + "(Id)        " +
+                "   ON DELETE CASCADE ON UPDATE CASCADE                       );"
         );
     }
 

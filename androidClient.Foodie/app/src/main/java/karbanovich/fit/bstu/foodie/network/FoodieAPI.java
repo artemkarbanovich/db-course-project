@@ -1,6 +1,5 @@
 package karbanovich.fit.bstu.foodie.network;
 import java.util.ArrayList;
-import java.util.List;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Dish;
 import karbanovich.fit.bstu.foodie.models.Login;

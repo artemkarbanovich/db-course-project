@@ -1,5 +1,5 @@
 package karbanovich.fit.bstu.foodie.models;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Dish {
 
@@ -10,10 +10,10 @@ public class Dish {
     private int dishWeight;
     private double price;
     private String ingredients;
-    private List<Photo> photos;
+    private ArrayList<Photo> photos;
 
-    public Dish(int id, String name, String cookingTime, String youWillNeed,
-                int dishWeight, double price, String ingredients, List<Photo> photos) {
+    public Dish(int id, String name, String cookingTime, String youWillNeed, int dishWeight,
+                double price, String ingredients, ArrayList<Photo> photos) {
         this.id = id;
         this.name = name;
         this.cookingTime = cookingTime;
@@ -24,6 +24,8 @@ public class Dish {
         this.photos = photos;
     }
 
+    public Dish() { }
+
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCookingTime() { return cookingTime; }
@@ -31,7 +33,7 @@ public class Dish {
     public int getDishWeight() { return dishWeight; }
     public double getPrice() { return price; }
     public String getIngredients() { return ingredients; }
-    public List<Photo> getPhotos() { return photos; }
+    public ArrayList<Photo> getPhotos() { return photos; }
 
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -40,5 +42,5 @@ public class Dish {
     public void setDishWeight(int dishWeight) { this.dishWeight = dishWeight; }
     public void setPrice(double price) { this.price = price; }
     public void setIngredients(String ingredients) { this.ingredients = ingredients; }
-    public void setPhotos(List<Photo> photos) { this.photos = photos; }
+    public void setPhotos(ArrayList<Photo> photos) { this.photos = photos; }
 }

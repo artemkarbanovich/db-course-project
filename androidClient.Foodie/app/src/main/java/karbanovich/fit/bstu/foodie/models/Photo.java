@@ -10,6 +10,8 @@ public class Photo {
         this.url  = url;
     }
 
+    public Photo() { }
+
     public int getId() { return id; }
     public String getUrl() { return url; }
 

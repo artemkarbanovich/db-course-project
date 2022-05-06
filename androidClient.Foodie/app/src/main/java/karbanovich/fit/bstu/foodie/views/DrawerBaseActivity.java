@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import karbanovich.fit.bstu.foodie.AccountSingleton;
 import karbanovich.fit.bstu.foodie.R;
 import karbanovich.fit.bstu.foodie.database.DatabaseBuilder;
+import karbanovich.fit.bstu.foodie.database.repositories.DishesRepository;
 import karbanovich.fit.bstu.foodie.database.repositories.StatisticsRepository;
 import karbanovich.fit.bstu.foodie.database.repositories.UserRepository;
 import karbanovich.fit.bstu.foodie.helpers.AccountHelper;
@@ -68,6 +69,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
         UserRepository.deleteUser(db, AccountHelper.getUserId(this));
         StatisticsRepository.deleteStatistics(db, AccountHelper.getUserId(this));
+        DishesRepository.deleteAllDishes(db, AccountHelper.getUserId(this));
 
         AccountSingleton.destroyAccount();
         SharedPreferencesHelper.deleteAccount(this);

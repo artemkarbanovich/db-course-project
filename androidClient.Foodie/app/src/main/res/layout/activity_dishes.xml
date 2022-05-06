@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".views.DishesActivity">
 
+    <TextView android:id="@+id/dishes__no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:text="Check your internet connection and try again"
+        app:layout_constraintTop_toBottomOf="@id/dishes__search_params_container"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <ProgressBar android:id="@+id/dishes__progress_bar"
         android:layout_weight="1"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dishes__search_params_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,72 +32,91 @@
         android:minHeight="50dp"
         android:minWidth="50dp" />
 
-    <EditText android:id="@+id/dishes__name_search_str"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Search"
-        android:text=""
-        android:paddingLeft="5dp"
-        android:textSize="16dp"
-        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/dishes__search_params_container"
+        android:layout_height="wrap_content">
 
-    <LinearLayout android:id="@+id/dishes__spinners_container"
-        app:layout_constraintTop_toBottomOf="@id/dishes__name_search_str"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="15dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="center" >
-
-        <Spinner android:id="@+id/dishes_order_by_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <EditText android:id="@+id/dishes__name_search_str"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="17.5dp"
+            android:layout_marginRight="17.5dp"
+            android:hint="Search"
+            android:text=""
+            android:paddingLeft="5dp"
+            android:textSize="16dp"
             android:textColor="@color/black"
-            android:paddingLeft="7dp"
-            android:height="40dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18dp"
-            android:layout_weight="1" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="wrap_content" />
 
-        <Spinner android:id="@+id/dishes__order_by_type_spinner"
-            android:layout_width="0dp"
+        <LinearLayout android:id="@+id/dishes__spinners_container"
+            app:layout_constraintTop_toBottomOf="@id/dishes__name_search_str"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:paddingLeft="7dp"
-            android:height="40dp"
-            android:layout_marginLeft="5dp"
-            android:textSize="18dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center" >
 
-    </LinearLayout>
+            <Spinner android:id="@+id/dishes_order_by_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:paddingLeft="7dp"
+                android:height="40dp"
+                android:layout_marginRight="5dp"
+                android:textSize="18dp"
+                android:layout_weight="1" />
 
-    <Button android:id="@+id/dishes_search_btn"
-        android:text="Apply"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textSize="16dp"
-        android:layout_marginTop="15dp"
+            <Spinner android:id="@+id/dishes__order_by_type_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:paddingLeft="7dp"
+                android:height="40dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="18dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Button android:id="@+id/dishes_search_btn"
+            android:text="Apply"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/dishes__spinners_container"
+            android:layout_height="wrap_content" />
+
+        <View android:id="@+id/dishes__black_line"
+            app:layout_constraintTop_toBottomOf="@id/dishes_search_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dishes__dishes_list_recycler"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/dishes__spinners_container"
-        android:layout_height="wrap_content" />
-
-    <View
-        app:layout_constraintTop_toBottomOf="@id/dishes_search_btn"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/dish_list_item"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/black" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dishes__search_params_container"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
