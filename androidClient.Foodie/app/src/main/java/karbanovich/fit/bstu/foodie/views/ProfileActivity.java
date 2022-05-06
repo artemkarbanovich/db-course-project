@@ -101,6 +101,9 @@ public class ProfileActivity extends DrawerBaseActivity {
                 setErrorOrSuccessDbUpdating("green",
                         "We successfully updated your profile after connecting to the internet");
                 setUserData(currentUser);
+
+                currentUser.setUpdateStatus(null);
+                UserRepository.updateUser(db, currentUser);
                 AccountHelper.updateEmail(context, currentUser.getEmail());
             }
             else if(response.code() == 400){
@@ -176,6 +179,7 @@ public class ProfileActivity extends DrawerBaseActivity {
         } else if (!SystemHelper.isNetworkAvailable(context)) {
             currentUser.setUpdateStatus("UPDATED_LOCALLY");
             UserRepository.updateUser(db, currentUser);
+            error_success_db_updating.setVisibility(View.GONE);
             Toast.makeText(context, "User will be updated", Toast.LENGTH_LONG).show();
         }
     }
