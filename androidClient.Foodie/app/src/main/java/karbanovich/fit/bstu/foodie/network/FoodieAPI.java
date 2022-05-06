@@ -1,5 +1,8 @@
 package karbanovich.fit.bstu.foodie.network;
+import java.util.ArrayList;
+import java.util.List;
 import karbanovich.fit.bstu.foodie.models.Account;
+import karbanovich.fit.bstu.foodie.models.Dish;
 import karbanovich.fit.bstu.foodie.models.Login;
 import karbanovich.fit.bstu.foodie.models.Register;
 import karbanovich.fit.bstu.foodie.models.Statistics;
@@ -12,6 +15,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface FoodieAPI {
     @POST("account/register")
@@ -29,4 +33,10 @@ public interface FoodieAPI {
 
     @GET("statistics/user")
     Call<Statistics> getStatistics(@Header("authorization") String token);
+
+    @GET("dishes/user-list")
+    Call<ArrayList<Dish>> getDishes(@Header("authorization") String token,
+                                    @Query("nameSearchStr") String nameSearchStr,
+                                    @Query("orderBy") String orderBy,
+                                    @Query("orderByType") String orderByType);
 }

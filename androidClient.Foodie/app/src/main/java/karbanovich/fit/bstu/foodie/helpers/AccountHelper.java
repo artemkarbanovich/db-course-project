@@ -33,4 +33,14 @@ public class AccountHelper {
         }
     }
 
+    public static String getBearerToken(Context context) {
+        Account accSharedPreferences = SharedPreferencesHelper.getAccount(context);
+        Account accSingleton = AccountSingleton.getAccount();
+
+        if(accSharedPreferences != null) {
+            return accSharedPreferences.getToken();
+        } else if(accSingleton != null) {
+           return accSingleton.getToken();
+        } else { return ""; }
+    }
 }

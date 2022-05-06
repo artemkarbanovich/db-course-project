@@ -3,7 +3,7 @@ USE Foodie;
 
 GO
 CREATE PROCEDURE dbo.GetDishUserList
-	@nameSearchStr NVARCHAR(25), @orderBy NVARCHAR(15), @orderByType NVARCHAR(15)
+	@nameSearchStr NVARCHAR(25) = '', @orderBy NVARCHAR(15), @orderByType NVARCHAR(15)
 AS
 BEGIN TRY
 	DECLARE @orderByCommand NVARCHAR(100) = '';
