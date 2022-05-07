@@ -1,4 +1,4 @@
-package karbanovich.fit.bstu.foodie.adapters;
+package karbanovich.fit.bstu.foodie.adapters.dishes;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class DishesRecyclerScroll extends RecyclerView.OnScrollListener {

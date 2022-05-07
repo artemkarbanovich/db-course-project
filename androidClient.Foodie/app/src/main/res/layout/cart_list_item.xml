@@ -1,0 +1,74 @@
+<androidx.cardview.widget.CardView
+    android:id="@+id/news_item_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+
+        <ImageView android:id="@+id/cart_item__photo"
+            android:layout_width="110dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_default"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/cart_item__dish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:gravity="center|left"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Dish name"
+            android:textStyle="bold"
+            android:textSize="18dp" />
+
+        <TextView android:id="@+id/cart_item__dishes_price"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:gravity="center|left"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="68.99 BYN"
+            android:textSize="15dp" />
+
+        <TextView android:id="@+id/cart_item__dishes_count"
+            android:gravity="center|left"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:textColor="#595959"
+            android:text="Count: 1"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+        <ImageButton android:id="@+id/cart_item__remove_btn"
+            android:layout_width="30dp"
+            android:background="@color/white"
+            android:layout_height="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="5dp"
+            android:clickable="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_close_24" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

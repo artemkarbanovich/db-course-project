@@ -99,7 +99,7 @@ public class ProfileActivity extends DrawerBaseActivity {
         public void onFetchData(Response<Void> response) {
             if(response.isSuccessful()) {
                 setErrorOrSuccessDbUpdating("green",
-                        "We successfully updated your profile after connecting to the internet");
+                        "Your profile successfully updated after connecting to the internet");
                 setUserData(currentUser);
 
                 currentUser.setUpdateStatus(null);
@@ -108,12 +108,12 @@ public class ProfileActivity extends DrawerBaseActivity {
             }
             else if(response.code() == 400){
                 setErrorOrSuccessDbUpdating("red",
-                        "We were unable to update your profile after connecting to the internet due to email already taken");
+                        "Error by updating your profile after connecting to the internet due to email already taken");
                 getData();
             }
             else {
                 setErrorOrSuccessDbUpdating("red",
-                        "We were unable to update your profile after connecting to the internet");
+                        "Error by updating your profile after connecting to the internet");
                 getData();
             }
             progressBar.setVisibility(View.GONE);
@@ -121,7 +121,7 @@ public class ProfileActivity extends DrawerBaseActivity {
         @Override
         public void onFetchError(Throwable error) {
             setErrorOrSuccessDbUpdating("red",
-                    "We were unable to update your profile after connecting to the internet");
+                    "Error by updating your profile after connecting to the internet");
             getData();
             progressBar.setVisibility(View.GONE);
         }

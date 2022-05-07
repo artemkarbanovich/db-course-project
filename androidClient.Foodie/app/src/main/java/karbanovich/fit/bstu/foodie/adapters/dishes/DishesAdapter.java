@@ -1,19 +1,17 @@
-package karbanovich.fit.bstu.foodie.adapters;
+package karbanovich.fit.bstu.foodie.adapters.dishes;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-
+import karbanovich.fit.bstu.foodie.CartService;
 import karbanovich.fit.bstu.foodie.R;
 import karbanovich.fit.bstu.foodie.helpers.SystemHelper;
+import karbanovich.fit.bstu.foodie.models.CartItem;
 import karbanovich.fit.bstu.foodie.models.Dish;
 import karbanovich.fit.bstu.foodie.models.Photo;
 
@@ -37,6 +35,7 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DishesViewHolder holder, int position) {
         List<SlideModel> sliders = new ArrayList<>();
+
         if(SystemHelper.isNetworkAvailable(context))
             for (Photo photo : dishes.get(position).getPhotos())
                 sliders.add(new SlideModel(photo.getUrl()));
@@ -52,9 +51,15 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesViewHolder> {
         holder.price.setText(dishes.get(position).getPrice() + " BYN");
 
         holder.toCart.setOnClickListener(view -> {
-            // TODO: handle TO CART
-
-            Toast.makeText(context, "HELLO, I'm " + dishes.get(position).getName(), Toast.LENGTH_LONG).show();
+            CartItem cartItem = new CartItem(
+                    dishes.get(position).getId(),
+                    dishes.get(position).getName(),
+                    dishes.get(position).getPrice(),
+                    dishes.get(position).getPhotos().get(1).getUrl(),
+                    1
+            );
+            CartService.addCartItem(cartItem);
+            Toast.makeText(context, dishes.get(position).getName() + " added to cart", Toast.LENGTH_LONG).show();
         });
     }
 }

@@ -1,13 +1,10 @@
-package karbanovich.fit.bstu.foodie.adapters;
+package karbanovich.fit.bstu.foodie.adapters.dishes;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.denzcoskun.imageslider.ImageSlider;
-
 import karbanovich.fit.bstu.foodie.R;
 
 public class DishesViewHolder extends RecyclerView.ViewHolder {
