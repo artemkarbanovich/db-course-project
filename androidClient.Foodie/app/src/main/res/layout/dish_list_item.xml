@@ -17,11 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-       <ImageView android:id="@+id/dish_item___images"
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:scaleType="centerCrop"
-           android:src="@drawable/img_default"/>
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/dish_item__image_slider"
+            android:layout_width="match_parent"
+            app:auto_cycle="false"
+            android:layout_height="200dp" />
 
         <TextView android:id="@+id/dish_item__name"
             android:layout_width="match_parent"
