@@ -19,6 +19,7 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesViewHolder> {
 
     private Context context;
     private ArrayList<Dish> dishes;
+    private Toast toast = null;
 
     public DishesAdapter(Context context, ArrayList<Dish> dishes) {
         this.context = context;
@@ -59,7 +60,11 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesViewHolder> {
                     1
             );
             CartService.addCartItem(cartItem);
-            Toast.makeText(context, dishes.get(position).getName() + " added to cart", Toast.LENGTH_LONG).show();
+
+            if (toast!= null)
+                toast.cancel();
+            toast = Toast.makeText(context, dishes.get(position).getName() + " added to cart", Toast.LENGTH_LONG);
+            toast.show();
         });
     }
 }

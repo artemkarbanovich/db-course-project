@@ -10,8 +10,10 @@ public class CartService {
     public static ArrayList<CartItem> getCartItems() { return cartItems; }
 
     public static void addCartItem(CartItem item) {
-        if(cartItems.size() == 0)
+        if(cartItems.size() == 0) {
             cartItems.add(item);
+            return;
+        }
 
         for(CartItem i : cartItems) {
             if(i.dishId == item.dishId) {
@@ -63,5 +65,9 @@ public class CartService {
         }
 
         return 0.0;
+    }
+
+    public static void removeAllItems() {
+        cartItems.clear();
     }
 }
