@@ -2,6 +2,7 @@ package karbanovich.fit.bstu.foodie.network.requestManagers;
 import android.content.Context;
 import karbanovich.fit.bstu.foodie.AccountSingleton;
 import karbanovich.fit.bstu.foodie.constants.ApiConstants;
+import karbanovich.fit.bstu.foodie.helpers.AccountHelper;
 import karbanovich.fit.bstu.foodie.helpers.HttpHelper;
 import karbanovich.fit.bstu.foodie.helpers.SharedPreferencesHelper;
 import karbanovich.fit.bstu.foodie.models.Account;
@@ -52,15 +53,7 @@ public class RequestUserManager {
     }
 
     public void updateUser(OnFetchDataListener<Void> listener, User user) {
-        Call<Void> call;
-        Account accSharedPreferences = SharedPreferencesHelper.getAccount(context);
-        Account accSingleton = AccountSingleton.getAccount();
-
-        if(accSharedPreferences != null) {
-            call = foodieAPI.updateUser("Bearer " + accSharedPreferences.getToken(), user);
-        } else if(accSingleton != null) {
-            call = foodieAPI.updateUser("Bearer " + accSingleton.getToken(), user);
-        } else { return; }
+        Call<Void> call = foodieAPI.updateUser("Bearer " + AccountHelper.getBearerToken(context), user);
 
         call.enqueue(new Callback<Void>() {
             @Override public void onResponse(Call<Void> call, Response<Void> response) {

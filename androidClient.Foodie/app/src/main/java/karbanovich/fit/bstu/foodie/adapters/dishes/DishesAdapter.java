@@ -49,7 +49,7 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesViewHolder> {
         holder.weight.setText("Dish weight: " + dishes.get(position).getDishWeight() + " gram");
         holder.ingredients.setText(dishes.get(position).getIngredients());
         holder.youWillNeed.setText(dishes.get(position).getYouWillNeed());
-        holder.price.setText(dishes.get(position).getPrice() + " BYN");
+        holder.price.setText(String.format("%.2f", dishes.get(position).getPrice()) + " BYN");
 
         holder.toCart.setOnClickListener(view -> {
             CartItem cartItem = new CartItem(

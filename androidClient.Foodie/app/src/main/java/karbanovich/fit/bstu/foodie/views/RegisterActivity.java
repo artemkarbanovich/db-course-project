@@ -13,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.regex.Pattern;
 import karbanovich.fit.bstu.foodie.AccountSingleton;
 import karbanovich.fit.bstu.foodie.R;
@@ -41,8 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText confirmPassword;
     private CheckBox rememberMe;
     private boolean isValid = false;
-
     private final Context context = this;
+
     private final OnFetchDataListener<Account> responseListener = new OnFetchDataListener<Account>() {
         @Override public void onFetchData(Response<Account> response) {
             if(response.isSuccessful()) {
