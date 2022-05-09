@@ -11,6 +11,7 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
     private static final String STATISTICS_TABLE = "Statistics";
     private static final String DISHES_TABLE = "Dishes";
     private static final String PHOTOS_TABLE = "Photos";
+    private static final String ORDERS_TABLE = "Orders";
 
     public DatabaseBuilder(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);
@@ -35,7 +36,7 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
                 "MoneySpentLastMonth REAL NOT NULL,       " +
                 "WaitingOrdersCount REAL NOT NULL       );"
         );
-        db.execSQL("CREATE TABLE " + DISHES_TABLE + "   (" +
+        db.execSQL("CREATE TABLE " + DISHES_TABLE + "  (" +
                 "Id INTEGER PRIMARY KEY AUTOINCREMENT,  " +
                 "UserId INTEGER NOT NULL,               " +
                 "DishId INTEGER NOT NULL,               " +
@@ -54,6 +55,15 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
                 "FOREIGN KEY(DishId) REFERENCES " + DISHES_TABLE + "(Id)        " +
                 "   ON DELETE CASCADE ON UPDATE CASCADE                       );"
         );
+        db.execSQL("CREATE TABLE " + ORDERS_TABLE + "      (" +
+                "Id INTEGER PRIMARY KEY AUTOINCREMENT,      " +
+                "UserId INTEGER NOT NULL,                   " +
+                "OrderDate TEXT NOT NULL,                   " +
+                "DeliveryDate TEXT NOT NULL,                " +
+                "Address TEXT NOT NULL,                     " +
+                "TotalPrice REAL NOT NULL,                  " +
+                "Status TEXT NOT NULL                     );"
+        );
     }
 
     @Override public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -61,6 +71,7 @@ public class DatabaseBuilder extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + STATISTICS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + PHOTOS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + DISHES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ORDERS_TABLE);
         onCreate(db);
     }
 }

@@ -18,7 +18,8 @@
         android:theme="@style/Theme.Foodie">
         <activity
             android:name=".views.MakeOrderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".views.LauncherActivity"
             android:exported="true"
@@ -64,7 +65,7 @@
         <activity
             android:name=".views.PreviewActivity"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

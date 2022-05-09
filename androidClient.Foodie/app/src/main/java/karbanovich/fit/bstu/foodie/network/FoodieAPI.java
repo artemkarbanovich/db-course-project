@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import karbanovich.fit.bstu.foodie.models.Account;
 import karbanovich.fit.bstu.foodie.models.Dish;
 import karbanovich.fit.bstu.foodie.models.Login;
+import karbanovich.fit.bstu.foodie.models.Order;
 import karbanovich.fit.bstu.foodie.models.OrderAdd;
 import karbanovich.fit.bstu.foodie.models.Register;
 import karbanovich.fit.bstu.foodie.models.Statistics;
@@ -42,4 +43,9 @@ public interface FoodieAPI {
 
     @POST("orders")
     Call<Void> makeOrder(@Header("authorization") String token, @Body OrderAdd orderAdd);
+
+    @GET("orders/user-list")
+    Call<ArrayList<Order>> getOrders(@Header("authorization") String token,
+                                     @Query("orderDateFrom") String orderDateFrom,
+                                     @Query("orderDateTo") String orderDateTo);
 }
